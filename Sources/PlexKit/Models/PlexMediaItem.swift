@@ -177,6 +177,10 @@ public struct PlexMediaItem: PlexMediaItemType {
         public let selected: Bool?
         public let title: String?
         public let headerCompression: Bool?
+        public let colorPrimaries: String?
+        public let colorSpace: String?
+        public let colorRange: String?
+        public let colorTrc: String?
 
         public var type: StreamType {
             .init(rawValue: streamType)
