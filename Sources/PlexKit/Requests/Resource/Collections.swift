@@ -13,14 +13,14 @@ public extension Plex.Request {
         public var path: String { "library/sections/\(libraryKey)/collection" }
 
         private let libraryKey: String
-        private let mediaType: PlexMediaType
+        private let mediaType: PlexMediaType?
 
         public var queryItems: [URLQueryItem] = []
 
 
         public init(
             libraryKey: String,
-            mediaType: PlexMediaType
+            mediaType: PlexMediaType?
         ) {
             self.libraryKey = libraryKey
             self.mediaType = mediaType
