@@ -28,7 +28,7 @@ public extension Plex.Request {
             self.libraryKey = libraryKey
             self.mediaType = mediaType
             if mediaType != nil {
-                self.queryItems.append(.init(name: "subtype", value: mediaType!.key))
+                self.queryItems.append(URLQueryItem.init(name: "subtype", value: mediaType!.key))
             }
         }
 
