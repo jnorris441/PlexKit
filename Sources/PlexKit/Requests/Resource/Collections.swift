@@ -27,6 +27,8 @@ public extension Plex.Request {
             if mediaType != nil {
                 self.queryItems.append(URLQueryItem.init(name: "type", value: mediaType!.key))
             }
+            self.queryItems.append(URLQueryItem.init(name: "includeMeta", value: "1"))
+            self.queryItems.append(URLQueryItem.init(name: "includeAdvanced", value: "1"))
         }
 
         public struct Response: Codable {
