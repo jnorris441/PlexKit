@@ -17,7 +17,7 @@ public extension Plex.Request {
         private let libraryKey: String
         private let mediaType: PlexMediaType?
 
-        public var queryItems: [URLQueryItem]? = []
+        public var queryItems: [URLQueryItem] = []
 
         public init(
             libraryKey: String,
