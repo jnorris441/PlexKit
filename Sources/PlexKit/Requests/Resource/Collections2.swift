@@ -16,24 +16,61 @@ public extension Plex.Request {
 
         private let libraryKey: String
         private let mediaType: PlexMediaType?
+        var range: CountableClosedRange<Int>?
+        var excludeFields: [String] = []
+        var filters: [Filter] = []
 
-        public var queryItems: [URLQueryItem] = []
+        public var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
 
+            if mediaType != nil {
+                items.append(URLQueryItem(name: "subtype", value: mediaType!.key))
+            }
+
+            if let range = range {
+                items.append(contentsOf: pageQueryItems(for: range))
+            }
+
+            for filter in filters {
+                guard let queryItem = filter.queryItem else { continue }
+                items.append(queryItem)
+            }
+
+            let excludeFields = [
+                // This field can contain invalid unicode characters, causing
+                // JSON decode errors. We don't use the field currently, so it can
+                // be explicitly excluded here.
+                "file",
+            ] + self.excludeFields
+
+            items.append(
+                URLQueryItem(
+                    name: "excludeFields",
+                    value: excludeFields.joined(separator: ",")
+                )
+            )
+
+            items.append(URLQueryItem.init(name: "includeMeta", value: "1"))
+            items.append(URLQueryItem.init(name: "includeAdvanced", value: "1"))
+            items.append(URLQueryItem.init(name: "includeExternalMedia", value: "1"))
+            items.append(URLQueryItem.init(name: "includeCollections", value: "1"))
+
+            return items
+        }
+
+        
         public init(
             libraryKey: String,
-            mediaType: PlexMediaType?
+            mediaType: PlexMediaType?,
+            range: CountableClosedRange<Int>? = nil,
+            excludeFields: [String] = [],
+            filters: [Filter] = []
         ) {
             self.libraryKey = libraryKey
             self.mediaType = mediaType
-            if mediaType != nil {
-                self.queryItems.append(URLQueryItem.init(name: "subtype", value: mediaType!.key))
-            }
-            self.queryItems.append(URLQueryItem.init(name: "includeMeta", value: "1"))
-            self.queryItems.append(URLQueryItem.init(name: "includeAdvanced", value: "1"))
-            self.queryItems.append(URLQueryItem.init(name: "includeExternalMedia", value: "1"))
-            self.queryItems.append(URLQueryItem.init(name: "includeCollections", value: "1"))
-
-            print("query items: \(self.queryItems)")
+            self.range = range
+            self.excludeFields = excludeFields
+            self.filters = filters            
         }
 
         public struct Response: Codable {
@@ -42,6 +79,44 @@ public extension Plex.Request {
             enum CodingKeys: String, CodingKey {
                 case mediaContainer = "MediaContainer"
             }
+        }
+    }
+}
+
+
+public extension Plex.Request.Collections2 {
+    /// Filters the results of a `LibraryItems` request.
+    enum Filter {
+        /// Requests items in a specific set.
+        case keys(Set<String>)
+
+        /// Filters by a field in the result type.
+        case property(name: String, Comparison, String)
+
+        /// Filters by a date field in the result type.
+        case dateProperty(name: String, Comparison, Date)
+
+        /// Filters by items in a given collection.
+        case collection(id: String)
+
+        fileprivate var queryItem: URLQueryItem? {
+            switch self {
+            case let .keys(keys):
+                guard !keys.isEmpty else { return nil }
+                return .init(name: "id", value: keys.joined(separator: ","))
+            case let .property(name, comparison, value):
+                return .init(name: name + comparison.rawValue, value: value)
+            case let .dateProperty(name, comparison, value):
+                return .init(name: name + comparison.rawValue, value: String(Int(value.timeIntervalSince1970)))
+            case let .collection(id):
+                return .init(name: "collection", value: id)
+            }
+        }
+
+        public enum Comparison: String {
+            case greaterThan = ">"
+            case lessThan = "<"
+            case equal = ""
         }
     }
 }
