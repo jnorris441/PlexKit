@@ -29,6 +29,8 @@ public extension Plex.Request {
             }
             self.queryItems.append(URLQueryItem.init(name: "includeMeta", value: "1"))
             self.queryItems.append(URLQueryItem.init(name: "includeAdvanced", value: "1"))
+            self.queryItems.append(URLQueryItem.init(name: "includeExternalMedia", value: "1"))
+            self.queryItems.append(URLQueryItem.init(name: "includeCollections", value: "1"))
         }
 
         public struct Response: Codable {
