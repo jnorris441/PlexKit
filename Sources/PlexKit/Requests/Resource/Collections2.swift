@@ -18,7 +18,7 @@ public extension Plex.Request {
         private let mediaType: PlexMediaType?
 
         public var queryItems: [URLQueryItem]? {
-            [.init(name: "subtype", value: mediaType?.key ?? "")]
+            []
         }
 
         public init(
@@ -27,6 +27,9 @@ public extension Plex.Request {
         ) {
             self.libraryKey = libraryKey
             self.mediaType = mediaType
+            if mediaType != nil {
+                self.queryItems.append(.init(name: "subtype", value: mediaType!.key))
+            }
         }
 
         public struct Response: Codable {
