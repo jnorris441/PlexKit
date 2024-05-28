@@ -72,6 +72,7 @@ public struct PlexMediaItem: PlexMediaItemType {
     public let viewedLeafCount: Int?
     public let childCount: Int?
 
+    private let Marker: [Marker]?
     private let Media: [Media]?
     private let Genre: [Tag]?
     private let Country: [Tag]?
@@ -89,6 +90,13 @@ public struct PlexMediaItem: PlexMediaItemType {
     public struct Tag: Codable, Hashable {
         public let id: Int?
         public let tag: String
+    }
+
+    public struct Marker: Codable, Hashable {
+        public let id: Int?
+        public let startTimeOffset: Int?
+        public let endTimeOffset: Int?
+        public let type: String?
     }
 
     public struct Media: Codable, Hashable {
@@ -224,6 +232,10 @@ public extension PlexMediaItem {
 
     var genres: [Tag] {
         Genre ?? []
+    }
+
+    var markers: [Marker] {
+        Marker ?? []
     }
 
     var countries: [Tag] {
