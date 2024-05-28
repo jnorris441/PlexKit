@@ -235,7 +235,7 @@ public extension PlexMediaItem {
     }
 
     var markers: [Marker] {
-        Marker ?? []
+        self.Marker ?? []
     }
 
     var countries: [Tag] {
