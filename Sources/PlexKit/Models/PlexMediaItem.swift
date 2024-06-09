@@ -54,6 +54,9 @@ public struct PlexMediaItem: PlexMediaItemType {
     public let updatedAt: Date?
     public let originalTitle: String?
     public let rating: Double?
+    public let ratingImage: String?
+    public let audienceRating: Double?
+    public let audienceRatingImage: String?
     public let userRating: Double?
     public let lastRatedAt: Date?
     public let year: Int?
