@@ -73,6 +73,7 @@ extension PlexResourceRequest {
         if let token = token {
             request.addValue(token, forHTTPHeaderField: "X-Plex-Token")
         }
+        request.timeoutInterval = 5
         return request
     }
 }
@@ -92,6 +93,7 @@ public extension PlexServiceRequest {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.addValue(accept, forHTTPHeaderField: "accept")
+        request.timeoutInterval = 5
 
         if let token = token {
             request.addValue(token, forHTTPHeaderField: "X-Plex-Token")
