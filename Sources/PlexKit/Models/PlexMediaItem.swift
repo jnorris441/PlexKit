@@ -145,6 +145,7 @@ public struct PlexMediaItem: PlexMediaItemType {
         public let videoProfile: String?
         public let has64BitOffsets: Bool?
         public let optimizedForStreaming: Bool?
+        public let indexes: String?
 
         private let Stream: [Stream]?
 
