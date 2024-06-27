@@ -26,6 +26,7 @@ public extension Plex.Request {
                 .init(name: "includeChapters", value: includeChapters),
                 .init(name: "includeStations", value: includeStations),
                 .init(name: "includeExternalMedia", value: includeExternalMedia),
+                .init(name: "includeMarkers", value: includeMarkers),
             ]
         }
 
@@ -40,6 +41,7 @@ public extension Plex.Request {
         private let includeChapters: Bool
         private let includeStations: Bool
         private let includeExternalMedia: Bool
+        private let includeMarkers: Bool
 
         public init(
             ratingKey: String,
@@ -50,7 +52,8 @@ public extension Plex.Request {
             includePreferences: Bool = false,
             includeChapters: Bool = false,
             includeStations: Bool = false,
-            includeExternalMedia: Bool = false
+            includeExternalMedia: Bool = false,
+            includeMarkers: Bool = false
         ) {
             self.ratingKey = ratingKey
             self.includeConcerts = includeConcerts
@@ -61,6 +64,7 @@ public extension Plex.Request {
             self.includeChapters = includeChapters
             self.includeStations = includeStations
             self.includeExternalMedia = includeExternalMedia
+            self.includeMarkers = includeMarkers
         }
 
         public struct Response: Codable {
