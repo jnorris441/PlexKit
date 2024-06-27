@@ -100,6 +100,7 @@ public struct PlexMediaItem: PlexMediaItemType {
         public let startTimeOffset: Int?
         public let endTimeOffset: Int?
         public let type: String?
+        public let markerType: String?
     }
 
     public struct Media: Codable, Hashable {
