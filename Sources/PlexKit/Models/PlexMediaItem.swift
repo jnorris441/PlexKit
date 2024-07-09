@@ -194,6 +194,8 @@ public struct PlexMediaItem: PlexMediaItemType {
         public let colorSpace: String?
         public let colorRange: String?
         public let colorTrc: String?
+        public let DOVILevel: Int?
+        public let DOVIProfile: Int?
 
         public var type: StreamType {
             .init(rawValue: streamType)
