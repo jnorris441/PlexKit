@@ -196,6 +196,8 @@ public struct PlexMediaItem: PlexMediaItemType {
         public let colorTrc: String?
         public let DOVILevel: Int?
         public let DOVIProfile: Int?
+        public let codecID: String?
+
 
         public var type: StreamType {
             .init(rawValue: streamType)
