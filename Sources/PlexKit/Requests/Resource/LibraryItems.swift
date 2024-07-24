@@ -86,7 +86,7 @@ public extension Plex.Request._LibraryItems {
         /// Filters by items in a given collection.
         case collection(id: String)
 
-        fileprivate var queryItem: URLQueryItem? {
+        var queryItem: URLQueryItem? { //removed fileprivate
             switch self {
             case let .keys(keys):
                 guard !keys.isEmpty else { return nil }
