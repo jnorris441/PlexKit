@@ -38,7 +38,7 @@ public extension Plex.Request {
         var mediaType: PlexMediaType
         var range: CountableClosedRange<Int>?
         var excludeFields: [String] = []
-        var filters: [Filter] = []
+        var filters: [Plex.Request.LibraryItems.Filter] = []
 
         public init(
             key: String,
@@ -60,42 +60,6 @@ public extension Plex.Request {
             enum CodingKeys: String, CodingKey {
                 case mediaContainer = "MediaContainer"
             }
-        }
-    }
-}
-
-public extension Plex.Request.FirstCharacter {
-    enum Filter {
-        /// Requests items in a specific set.
-        case keys(Set<String>)
-
-        /// Filters by a field in the result type.
-        case property(name: String, Comparison, String)
-
-        /// Filters by a date field in the result type.
-        case dateProperty(name: String, Comparison, Date)
-
-        /// Filters by items in a given collection.
-        case collection(id: String)
-
-        fileprivate var queryItem: URLQueryItem? {
-            switch self {
-            case let .keys(keys):
-                guard !keys.isEmpty else { return nil }
-                return .init(name: "id", value: keys.joined(separator: ","))
-            case let .property(name, comparison, value):
-                return .init(name: name + comparison.rawValue, value: value)
-            case let .dateProperty(name, comparison, value):
-                return .init(name: name + comparison.rawValue, value: String(Int(value.timeIntervalSince1970)))
-            case let .collection(id):
-                return .init(name: "collection", value: id)
-            }
-        }
-
-        public enum Comparison: String {
-            case greaterThan = ">"
-            case lessThan = "<"
-            case equal = ""
         }
     }
 }
