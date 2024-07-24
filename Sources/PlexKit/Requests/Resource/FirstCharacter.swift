@@ -45,7 +45,7 @@ public extension Plex.Request {
             mediaType: PlexMediaType,
             range: CountableClosedRange<Int>? = nil,
             excludeFields: [String] = [],
-            filters: [Filter] = []
+            filters: [Plex.Request.LibraryItems.Filter] = []
         ) {
             self.key = key
             self.mediaType = mediaType
