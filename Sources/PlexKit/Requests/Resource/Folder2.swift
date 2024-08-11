@@ -45,7 +45,7 @@ public extension Plex.Request {
 
         public init(
             key: String,
-            mediaType: PlexMediaType,
+            mediaType: PlexMediaType?,
             parentRatingKey: String?,
             range: CountableClosedRange<Int>? = nil,
             excludeFields: [String] = [
