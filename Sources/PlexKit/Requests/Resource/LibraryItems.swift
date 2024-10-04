@@ -15,9 +15,11 @@ public extension Plex.Request {
     struct _LibraryItems<MediaItem: PlexMediaItemType>: PlexResourceRequest {
         public var path: String { "library/\(key != nil ? "sections/\(key!)/" : "")all" }
         public var queryItems: [URLQueryItem]? {
-            var items: [URLQueryItem] = [
-                URLQueryItem(name: "type", value: mediaType.key),
-            ]
+            var items: [URLQueryItem] = []
+
+            if mediaType.key != "-1" {
+                items.append(URLQueryItem(name: "type", value: mediaType.key))
+            }
 
             if let range = range {
                 items.append(contentsOf: pageQueryItems(for: range))
