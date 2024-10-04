@@ -13,7 +13,7 @@ public extension Plex.Request {
     typealias LibraryItems = _LibraryItems<PlexMediaItem>
 
     struct _LibraryItems<MediaItem: PlexMediaItemType>: PlexResourceRequest {
-        public var path: String { "library/\(key != nil ? "sections/\(key)/" : "")all" }
+        public var path: String { "library/\(key != nil ? "sections/\(key!)/" : "")all" }
         public var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = [
                 URLQueryItem(name: "type", value: mediaType.key),
