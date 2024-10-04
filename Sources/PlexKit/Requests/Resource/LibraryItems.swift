@@ -119,7 +119,7 @@ public extension Plex.Request._LibraryItems.Response {
         public let allowSync: Bool?
         public let art: String?
         public let identifier: String?
-        public let librarySectionID: Int?
+        public let librarySectionID: String?
         public let librarySectionTitle: String?
         public let librarySectionUUID: String?
         public let mediaTagPrefix: String?
