@@ -1,5 +1,5 @@
 //
-//  LibraryItems.swift
+//  DiscoverLibraryItems.swift
 //  PlexKit
 //
 //  Created by Lachlan Charlick on 31/5/20.
@@ -10,9 +10,9 @@ import Foundation
 
 public extension Plex.Request {
     /// Fetches a library's contents.
-    typealias LibraryItems = _LibraryItems<PlexMediaItem>
+    typealias DiscoverLibraryItems = _DiscoverLibraryItems<PlexMediaItem>
 
-    struct _LibraryItems<MediaItem: PlexMediaItemType>: PlexResourceRequest {
+    struct _DiscoverLibraryItems<MediaItem: PlexMediaItemType>: PlexResourceRequest {
         public var path: String { "library/\(key != nil ? "sections/\(key!)/" : "")all" }
         public var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
@@ -51,14 +51,14 @@ public extension Plex.Request {
         var mediaType: PlexMediaType
         var range: CountableClosedRange<Int>?
         var excludeFields: [String] = []
-        var filters: [Filter] = []
+        var filters: [Plex.Request._LibraryItems.Filter] = []
 
         public init(
             key: String?,
             mediaType: PlexMediaType,
             range: CountableClosedRange<Int>? = nil,
             excludeFields: [String] = [],
-            filters: [Filter] = []
+            filters: [Plex.Request._LibraryItems.Filter] = []
         ) {
             self.key = key
             self.mediaType = mediaType
@@ -73,44 +73,7 @@ public extension Plex.Request {
     }
 }
 
-public extension Plex.Request._LibraryItems {
-    /// Filters the results of a `LibraryItems` request.
-    enum Filter {
-        /// Requests items in a specific set.
-        case keys(Set<String>)
-
-        /// Filters by a field in the result type.
-        case property(name: String, Comparison, String)
-
-        /// Filters by a date field in the result type.
-        case dateProperty(name: String, Comparison, Date)
-
-        /// Filters by items in a given collection.
-        case collection(id: String)
-
-        var queryItem: URLQueryItem? { //removed fileprivate
-            switch self {
-            case let .keys(keys):
-                guard !keys.isEmpty else { return nil }
-                return .init(name: "id", value: keys.joined(separator: ","))
-            case let .property(name, comparison, value):
-                return .init(name: name + comparison.rawValue, value: value)
-            case let .dateProperty(name, comparison, value):
-                return .init(name: name + comparison.rawValue, value: String(Int(value.timeIntervalSince1970)))
-            case let .collection(id):
-                return .init(name: "collection", value: id)
-            }
-        }
-
-        public enum Comparison: String {
-            case greaterThan = ">"
-            case lessThan = "<"
-            case equal = ""
-        }
-    }
-}
-
-public extension Plex.Request._LibraryItems.Response {
+public extension Plex.Request._DiscoverLibraryItems.Response {
     enum CodingKeys: String, CodingKey {
         case mediaContainer = "MediaContainer"
     }
@@ -121,7 +84,7 @@ public extension Plex.Request._LibraryItems.Response {
         public let allowSync: Bool?
         public let art: String?
         public let identifier: String?
-        public let librarySectionID: Int?
+        public let librarySectionID: String?
         public let librarySectionTitle: String?
         public let librarySectionUUID: String?
         public let mediaTagPrefix: String?
