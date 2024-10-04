@@ -17,7 +17,7 @@ public extension Plex.Request {
         public var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
 
-            if mediaType.key != "-1" {
+            if mediaType.key != -1 {
                 items.append(URLQueryItem(name: "type", value: mediaType.key))
             }
 
