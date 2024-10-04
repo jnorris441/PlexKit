@@ -10,7 +10,7 @@ import Foundation
 
 public extension Plex.Request {
     struct Genres: PlexResourceRequest {
-        public var path: String { "library/sections/\(libraryKey)/genres" }
+        public var path: String { "library/sections/\(libraryKey)/genre" }
 
         private let libraryKey: String
         private let mediaType: PlexMediaType?
