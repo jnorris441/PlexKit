@@ -51,14 +51,14 @@ public extension Plex.Request {
         var mediaType: PlexMediaType
         var range: CountableClosedRange<Int>?
         var excludeFields: [String] = []
-        var filters: [Plex.Request._LibraryItems.Filter] = []
+        var filters: [Plex.Request.LibraryItems.Filter] = []
 
         public init(
             key: String?,
             mediaType: PlexMediaType,
             range: CountableClosedRange<Int>? = nil,
             excludeFields: [String] = [],
-            filters: [Plex.Request._LibraryItems.Filter] = []
+            filters: [Plex.Request.LibraryItems.Filter] = []
         ) {
             self.key = key
             self.mediaType = mediaType
