@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Plex.Request {
-    struct EditRating: PlexResourceRequest {
+    struct RemoveFromWatchlist: PlexResourceRequest {
         public let path = ":/actions/removeFromWatchlist"
         public let httpMethod = "PUT"
         public var accept = "*/*"
