@@ -10,7 +10,7 @@ import Foundation
 
 public extension Plex.Request {
     struct AddToWatchlist: PlexResourceRequest {
-        public let path = ":/actions/addToWatchlist"
+        public let path = "actions/addToWatchlist"
         public let httpMethod = "PUT"
         public var accept = "*/*"
 
