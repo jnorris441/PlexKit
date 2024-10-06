@@ -30,7 +30,7 @@ public extension Plex.Request {
     }
 }
 
-struct PlexUserStateItem: Codable, Hashable {
+public struct PlexUserStateItem: Codable, Hashable {
     public let ratingKey: String?
     public let type: String?
     public let viewOffset: Int? 
