@@ -19,7 +19,7 @@ public extension Plex.Request {
         var key: String?
 
         public init(
-            key: String?,
+            key: String?
         ) {
             self.key = key
         }
