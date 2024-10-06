@@ -16,10 +16,10 @@ public extension Plex.Request {
             return items
         }
 
-        var key: String?
+        var key: String
 
         public init(
-            key: String?
+            key: String
         ) {
             self.key = key
         }
