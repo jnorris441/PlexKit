@@ -10,11 +10,11 @@ import Foundation
 
 // MARK: - Client.
 
-public final class Plex {
+public final class Plex: URLSessionDelegate {
     private let sessionConfiguration: URLSessionConfiguration
     lazy var session = URLSession(
         configuration: sessionConfiguration,
-        delegate: self as? URLSessionDelegate, 
+        delegate: self, 
         delegateQueue: nil
     )
 
@@ -31,11 +31,7 @@ public final class Plex {
             headers[key.rawValue] = value
         }
         sessionConfiguration.httpAdditionalHeaders = headers
-        self.session = URLSession(
-            configuration: sessionConfiguration,
-            delegate: self as? URLSessionDelegate, 
-            delegateQueue: nil
-        )
+        
     }
 
     private func request<Response>(
