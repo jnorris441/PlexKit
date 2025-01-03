@@ -14,7 +14,7 @@ public final class Plex {
     private let sessionConfiguration: URLSessionConfiguration
     lazy var session = URLSession(
         configuration: sessionConfiguration,
-        delegate: self as! URLSessionDelegate, 
+        delegate: self as? URLSessionDelegate, 
         delegateQueue: nil
     )
 
