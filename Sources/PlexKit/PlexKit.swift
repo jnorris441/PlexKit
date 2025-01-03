@@ -12,11 +12,26 @@ import Foundation
 
 
 class PlexURLSessionDelegateHandler: NSObject, URLSessionDelegate {
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        print("delegate urlSession")
+    public func urlSession(
+        _ session: URLSession, 
+        didReceive challenge: URLAuthenticationChallenge, 
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    ) {
+        print("PlexURLSessionDelegateHandler delegate urlSession")
        //Trust the certificate even if not valid 
        let urlCredential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
        completionHandler(.useCredential, urlCredential)
+    }
+    public func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didCompleteWithError error: Error?
+    ) {
+        if let error = error {
+            print("PlexURLSessionDelegateHandler Task completed with error: \(error.localizedDescription)")
+        } else {
+            print("PlexURLSessionDelegateHandler Task completed successfully.")
+        }
     }
 }
 
