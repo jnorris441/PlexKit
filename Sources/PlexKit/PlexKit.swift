@@ -10,11 +10,25 @@ import Foundation
 
 // MARK: - Client.
 
-public final class Plex: URLSessionDelegate {
+
+class PlexURLSessionDelegateHandler: NSObject, URLSessionDelegate {
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        print("delegate urlSession")
+       //Trust the certificate even if not valid 
+       let urlCredential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
+       completionHandler(.useCredential, urlCredential)
+    }
+}
+
+
+
+public final class Plex {
     private let sessionConfiguration: URLSessionConfiguration
+    private let delegateHandler = PlexURLSessionDelegateHandler()
+
     lazy var session = URLSession(
         configuration: sessionConfiguration,
-        delegate: self, 
+        delegate: delegateHandler, 
         delegateQueue: nil
     )
 
@@ -119,16 +133,6 @@ public final class Plex: URLSessionDelegate {
     }
 }
 
-
-// allow bad certs
-extension Plex {
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        print("delegate urlSession")
-       //Trust the certificate even if not valid 
-       let urlCredential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
-       completionHandler(.useCredential, urlCredential)
-    }
-}
 
 // MARK: - Client Info.
 
