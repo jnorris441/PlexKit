@@ -120,7 +120,7 @@ public final class Plex {
 
 
 // allow bad certs
-extension Plex: URLSessionDelegate, URLSessionDataDelegate {
+extension Plex {
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
        //Trust the certificate even if not valid 
        let urlCredential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
