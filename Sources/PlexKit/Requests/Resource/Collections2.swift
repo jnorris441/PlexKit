@@ -124,6 +124,7 @@ public extension Plex.Request.Collections2 {
 public extension Plex.Request.Collections2 {
     struct MediaContainer: Codable {
         public let size: Int
+        public let totalSize: Int?
         public let allowSync: Bool?
         public let art: String?
         public let content: String?
