@@ -37,7 +37,7 @@ public extension BasePlexRequest where Response: Codable {
         guard String(data: data, encoding: .utf8) != nil else {
             throw DecodingError.dataCorrupted(.init(codingPath: [], debugDescription: "Can't convert data to utf8 string"))
         }
-
+        
         return try decoder.decode(Response.self, from: data)
     }
 

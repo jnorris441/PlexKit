@@ -17,8 +17,7 @@ class PlexURLSessionDelegateHandler: NSObject, URLSessionDelegate {
         didReceive challenge: URLAuthenticationChallenge, 
         completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
     ) {
-        print("PlexURLSessionDelegateHandler delegate urlSession")
-       //Trust the certificate even if not valid 
+       //Trust the certificate even if not valid
        let urlCredential = URLCredential(trust: challenge.protectionSpace.serverTrust!)
        completionHandler(.useCredential, urlCredential)
     }
@@ -29,8 +28,6 @@ class PlexURLSessionDelegateHandler: NSObject, URLSessionDelegate {
     ) {
         if let error = error {
             print("PlexURLSessionDelegateHandler Task completed with error: \(error.localizedDescription)")
-        } else {
-            print("PlexURLSessionDelegateHandler Task completed successfully.")
         }
     }
 }

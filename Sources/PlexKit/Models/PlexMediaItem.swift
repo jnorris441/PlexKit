@@ -70,6 +70,7 @@ public struct PlexMediaItem: PlexMediaItemType {
     public let grandparentTheme: String?
     public let loudnessAnalysisVersion: String?
 
+    public let playlistItemID: Int?
     public let allowSync: Bool?
     public let leafCount: Int?
     public let viewedLeafCount: Int?

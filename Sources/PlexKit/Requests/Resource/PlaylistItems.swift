@@ -28,9 +28,10 @@ public extension Plex.Request {
         public var queryItems: [URLQueryItem]? {
             switch action {
             case let .add(resource, ratingKeys):
-                return [
+                let urls = [
                     uriForResource(resource, itemRatingKeys: ratingKeys),
                 ]
+                return urls
             case let .move(_, afterRatingKey) where afterRatingKey != nil:
                 return [
                     .init(
